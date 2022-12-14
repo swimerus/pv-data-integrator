@@ -1,0 +1,45 @@
+.venv
+*.pyc
+
+#ENERGA FILES
+!airflow/files/energa/
+airflow/files/energa/*
+!airflow/files/energa/.gitkeep
+
+!airflow/files/energa/org_files/
+airflow/files/energa/org_files/*
+!airflow/files/energa/org_files/.gitkeep
+
+!airflow/files/energa/archive/
+airflow/files/energa/archive/*
+!airflow/files/energa/archive/.gitkeep
+
+#FUSION SOLAR FILES
+airflow/files/fusion_solar/*
+
+!airflow/files/fusion_solar/org_files/
+airflow/files/fusion_solar/org_files/*
+!airflow/files/fusion_solar/org_files/.gitkeep
+
+!airflow/files/fusion_solar/archive/
+airflow/files/fusion_solar/archive/*
+!airflow/files/fusion_solar/archive/.gitkeep
+
+#POSTGRES DB
+!db/postgres/postgres_data/
+db/postgres/postgres_data/*
+!db/postgres/postgres_data/.gitkeep
+
+!db/postgres/dumps/
+db/postgres/dumps/*
+!db/postgres/dumps/.gitkeep
+
+#AIRFLOW LOGS
+!airflow/logs/
+airflow/logs/*
+!airflow/logs/.gitkeep
+
+#AIRFLOW PLUGINS
+!airflow/plugins/
+airflow/plugins/*
+!airflow/plugins/.gitkeep

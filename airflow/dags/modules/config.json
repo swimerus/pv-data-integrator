@@ -1,0 +1,14 @@
+{
+    "first_date_with_data": "2022-08-10",
+    "energa_username": "energa_username",
+    "energa_password": "energa_password",
+    "energa_login_url": "https://mojlicznik.energa-operator.pl/dp/UserLogin.do",
+    "file_dir": "/opt/airflow/files",
+    "huawei_username": "huawei_username",
+    "huawei_password": "huawei_password",
+    "postgresql_username": "airflow",
+    "postgresql_password": "airflow",
+    "postgresql_database": "pv_data",
+    "postgresql_server": "host.docker.internal",
+    "postgresql_port": "5432"
+}
