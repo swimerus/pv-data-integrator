@@ -4,6 +4,8 @@ from airflow.decorators import task, dag
 
 from datetime import datetime
 
+from modules.utils import util
+
 
 @dag(
     dag_id='pv_db_dump_pipeline',
@@ -13,8 +15,6 @@ from datetime import datetime
 def task_flow():
 
     def get_bash_command():
-        from modules.utils import util
-
         username = util.get_config_param("postgresql_username")
         password = util.get_config_param("postgresql_password")
         db_name = util.get_config_param("postgresql_database")

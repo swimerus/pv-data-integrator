@@ -18,3 +18,28 @@ There are 3 data pipelines:
 
 # Grafana Dashboard
 ![grafa_dashboard](./images/grafana_dashboard.png)
+
+# Configuration
+## Usernames etc.
+Usernames, passwords, urls etc. are configured in config.json file in `airflow/dags/modules/`. Variable names are self-explaining.
+
+## Python packages
+To import DAG to airflow, selenium python package must be installed in the pv_airflow_scheduler container. Any other packeges are included in Airlfow by default.
+Follow these steps:
+1. After starting the app, find pv_airflow_scheduler container id:
+```bash
+docker ps
+```
+2. Start bash in the pv_airflow_scheduler container:
+```bash
+docker exec -it <container id> bash
+```
+3. Install selenium
+```bash
+sudo pip install selenium
+```
+
+# Starting the app
+```bash
+docker compose up
+```

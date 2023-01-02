@@ -1,13 +1,16 @@
+from datetime import datetime, timedelta
+import json
+import os
+
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import BranchPythonOperator
 from airflow.decorators import task, dag
 from airflow.utils.task_group import TaskGroup
 
+from modules.fusion_solar.data_retriever import DataRetriever
 
-from datetime import datetime, timedelta
-import os
-
-
+from modules.db.model import PvSource, FusionSolarData
+from modules.db.controller import Controller
 from modules.utils import util
 
 
@@ -26,9 +29,6 @@ def branch_func(**kwargs):
 
 
 def insert_data_to_db(filename):
-    import json
-    from modules.db.controller import Controller
-    from modules.db.model import PvSource, FusionSolarData
 
     if isinstance(filename, list):
         for file in filename:
@@ -67,8 +67,6 @@ def task_flow():
 
     @task
     def get_data_from_fusion_solar(**kwargs):
-        from modules.fusion_solar.data_retriever import DataRetriever
-
         ti = kwargs['ti']
         from_date = ti.xcom_pull(task_ids='get_next_date')
         print(f'from_date={from_date}')
@@ -91,9 +89,6 @@ def task_flow():
 
     @task
     def get_next_date():
-        from modules.db.controller import Controller
-        from modules.db.model import FusionSolarData
-
         db_ctrl = Controller(data_list=[FusionSolarData()])
         date = db_ctrl.get_last_process_date()+timedelta(days=1)
         return date.strftime('%Y-%m-%d')

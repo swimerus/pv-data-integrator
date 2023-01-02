@@ -31,7 +31,6 @@ services:
       - ./airflow/files:/opt/airflow/files
     ports:
       - 4444:4444
-    shm_size: '2gb'
 
   db:
     image: postgres:13
@@ -111,4 +110,3 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    user: ":"

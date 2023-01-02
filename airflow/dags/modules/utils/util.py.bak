@@ -1,5 +1,7 @@
+import json
+
+
 def get_config_param(config_entry):
-    import json
     with open('/opt/airflow/dags/modules/config.json') as f:
         conf = json.load(f)
         return conf[config_entry]

@@ -4,8 +4,14 @@ from airflow.decorators import task, dag
 from airflow.utils.task_group import TaskGroup
 
 from datetime import datetime, timedelta
+import json
 import os
 
+from modules.energa.scrapper import Scrapper
+from modules.energa.file_processor import FileProcessor
+
+from modules.db.model import EnergaData, PvSource
+from modules.db.controller import Controller
 
 from modules.utils import util
 
@@ -56,9 +62,6 @@ def task_flow():
 
     @task
     def get_next_date():
-        from modules.db.controller import Controller
-        from modules.db.model import EnergaData
-
         db_ctrl = Controller(data_list=[EnergaData()])
         date = db_ctrl.get_last_process_date()
         return date.strftime('%Y-%m-%d')
@@ -70,8 +73,6 @@ def task_flow():
 
     @task
     def scrape_energa(**kwargs):
-        from modules.energa.scrapper import Scrapper
-
         ti = kwargs['ti']
         from_date = ti.xcom_pull(task_ids='get_next_date')
         print(f'from_date={from_date}')
@@ -84,8 +85,6 @@ def task_flow():
 
     @task
     def transform_excel_to_json():
-        from modules.energa.file_processor import FileProcessor
-
         fp = FileProcessor()
         fp.transform_to_json()
 
@@ -112,10 +111,6 @@ def task_flow():
 
     @task
     def insert_data_to_db(**kwargs):
-        import json
-        from modules.db.model import PvSource, EnergaData
-        from modules.db.controller import Controller
-
         ti = kwargs['ti']
         filenames = ti.xcom_pull(
             task_ids='scrapping_tasks.processing_data_tasks.find_files_to_proceed')
